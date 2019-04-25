@@ -287,7 +287,7 @@ function SpringFramework.moveLockedObjectsIntoAlignment(spring)
 						local maxForceStrength = 5;
 						local forceLine = Vector(forceVector.X, forceVector.Y):SetMagnitude(50 * forceVector.Magnitude/maxForceStrength);
 						local drawStartPos =  spring.applyForcesAtOffset and spring.targetPos[i] or spring.targets[i].Pos;
-						SpringFramework.drawForceArrow(drawStartPos, drawStartPos + forceLine, spring.drawAngle, 7, forceVector.Magnitude >= maxForceStrength and 254 or 5);
+						SpringFramework.drawArrow(drawStartPos, drawStartPos + forceLine, spring.drawAngle, 7, forceVector.Magnitude >= maxForceStrength and 254 or 5);
 					end
 					
 					actionsPerformed = true;
@@ -316,7 +316,7 @@ function SpringFramework.applyForcesToObjects(spring)
 				local maxForceStrength = spring.maxForceStrength[i];
 				local forceLine = Vector(spring.forceVectors[i].X, spring.forceVectors[i].Y):SetMagnitude(50 * spring.forceVectors[i].Magnitude/maxForceStrength);
 				local drawStartPos =  spring.applyForcesAtOffset and spring.targetPos[i] or spring.targets[i].Pos;
-				SpringFramework.drawForceArrow(drawStartPos, drawStartPos + forceLine, spring.drawAngle, 7, spring.forceVectors[i].Magnitude >= maxForceStrength and 254 or 0);
+				SpringFramework.drawArrow(drawStartPos, drawStartPos + forceLine, spring.drawAngle, 7, spring.forceVectors[i].Magnitude >= maxForceStrength and 254 or 0);
 			end
 		end
 	end
@@ -338,12 +338,14 @@ function SpringFramework.drawDebugLines(spring)
 end
 
 
-function SpringFramework.drawForceArrow(startPos, endPos, rotAngle, width, colourIndex)
-	local lineAngle = (SceneMan:ShortestDistance(startPos, endPos, SceneMan.SceneWrapsX).AbsDegAngle + (360)) % (360);
+function SpringFramework.drawArrow(startPos, endPos, rotAngle, width, colourIndex)
+	local distance = SceneMan:ShortestDistance(startPos, endPos, SceneMan.SceneWrapsX);
+	endPos = startPos + distance;
+	local lineAngle = (distance.AbsDegAngle + 360)%360;
 	local isHorizontal = (lineAngle >= 315 or lineAngle <= 45) or (lineAngle >= 135 and lineAngle <= 225);
 	local isVertical = (lineAngle >= 45 and lineAngle <= 135) or (lineAngle >= 225 and lineAngle <= 315);
 	local evenLineCount = width % 2 == 0;
-	local midCount = width * 0.5;
+	local midCount = math.ceil(width * 0.5);
 	local rotatedStartPos = Vector(startPos.X, startPos.Y):RadRotate(-rotAngle);
 
 	for i = 1, width + (evenLineCount and 1 or 0) do
