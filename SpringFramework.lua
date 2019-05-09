@@ -118,7 +118,7 @@ function SpringFramework.calculateSpringLengths(lengthTable)
 	return length;
 end
 
-function SpringFramework.update(spring)
+function SpringFramework.update(spring, noObjectUpdates)
 	if (spring == nil or next(spring) == nil) then
 		print("Trying to update spring that doesn't exist or has been BROKEN");
 		return nil;
@@ -126,7 +126,9 @@ function SpringFramework.update(spring)
 	
 	SpringFramework.updateCalculations(spring);
 	
-	SpringFramework.updateObjects(spring);
+	if (noObjectUpdates ~= true) then
+		SpringFramework.updateObjects(spring);
+	end
 	
 	if (spring.showDebug == true) then
 		SpringFramework.drawDebugLines(spring);
