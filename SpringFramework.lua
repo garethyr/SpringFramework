@@ -329,14 +329,14 @@ end
 function SpringFramework.drawDebugLines(spring)
 	for i = 1, 2 do
 		for j = -1, 1 do
-			FrameMan:DrawLinePrimitive(spring.pos.mid + Vector(-9, j):RadRotate(spring.drawAngle), spring.pos.mid + Vector(9, j):RadRotate(spring.drawAngle), 5);
+			PrimitiveMan:DrawLinePrimitive(spring.pos.mid + Vector(-9, j):RadRotate(spring.drawAngle), spring.pos.mid + Vector(9, j):RadRotate(spring.drawAngle), 5);
 		
-			FrameMan:DrawLinePrimitive(spring.pos[i].min + Vector(-3, j):RadRotate(spring.drawAngle), spring.pos[i].min + Vector(3, j):RadRotate(spring.drawAngle), 5);
-			FrameMan:DrawLinePrimitive(spring.pos[i].rest + Vector(-3, j):RadRotate(spring.drawAngle), spring.pos[i].rest + Vector(3, j):RadRotate(spring.drawAngle), 5);
-			FrameMan:DrawLinePrimitive(spring.pos[i].max + Vector(-3, j):RadRotate(spring.drawAngle), spring.pos[i].max + Vector(3, j):RadRotate(spring.drawAngle), 5);
+			PrimitiveMan:DrawLinePrimitive(spring.pos[i].min + Vector(-3, j):RadRotate(spring.drawAngle), spring.pos[i].min + Vector(3, j):RadRotate(spring.drawAngle), 5);
+			PrimitiveMan:DrawLinePrimitive(spring.pos[i].rest + Vector(-3, j):RadRotate(spring.drawAngle), spring.pos[i].rest + Vector(3, j):RadRotate(spring.drawAngle), 5);
+			PrimitiveMan:DrawLinePrimitive(spring.pos[i].max + Vector(-3, j):RadRotate(spring.drawAngle), spring.pos[i].max + Vector(3, j):RadRotate(spring.drawAngle), 5);
 		end
-		FrameMan:DrawLinePrimitive(spring.targetPos[i] + Vector(-15, 0):RadRotate(spring.drawAngle), spring.targetPos[i] + Vector(15, 0):RadRotate(spring.drawAngle), 151);
-		FrameMan:DrawLinePrimitive(spring.pos.mid + Vector(0, -spring.length.difference):RadRotate(spring.drawAngle), spring.pos.mid + Vector(0, spring.length.difference):RadRotate(spring.drawAngle), 151);
+		PrimitiveMan:DrawLinePrimitive(spring.targetPos[i] + Vector(-15, 0):RadRotate(spring.drawAngle), spring.targetPos[i] + Vector(15, 0):RadRotate(spring.drawAngle), 151);
+		PrimitiveMan:DrawLinePrimitive(spring.pos.mid + Vector(0, -spring.length.difference):RadRotate(spring.drawAngle), spring.pos.mid + Vector(0, spring.length.difference):RadRotate(spring.drawAngle), 151);
 	end
 end
 
@@ -354,10 +354,10 @@ function SpringFramework.drawArrow(startPos, endPos, rotAngle, width, colourInde
 	for i = 1, width + (evenLineCount and 1 or 0) do
 		if (i == midCount) then
 			if (evenLineCount == false) then
-				FrameMan:DrawLinePrimitive(startPos, endPos, colourIndex);
+				PrimitiveMan:DrawLinePrimitive(startPos, endPos, colourIndex);
 			end
 		else
-			FrameMan:DrawLinePrimitive(Vector(rotatedStartPos.X - (isVertical and (midCount - i) or 0), rotatedStartPos.Y - (isHorizontal and (midCount - i) or 0)):RadRotate(rotAngle), endPos, colourIndex);
+			PrimitiveMan:DrawLinePrimitive(Vector(rotatedStartPos.X - (isVertical and (midCount - i) or 0), rotatedStartPos.Y - (isHorizontal and (midCount - i) or 0)):RadRotate(rotAngle), endPos, colourIndex);
 		end
 	end
 end
